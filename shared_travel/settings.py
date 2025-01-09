@@ -63,7 +63,7 @@ CORS_ORIGIN_WHITELIST = [
 ALLOWED_HOSTS = ["shared-travel1.onrender.com", "127.0.0.1", "localhost"]
 
 CORS_ALLOWED_ORIGINS = [
-    "https://shared-travel1.onrender.com"  # Allow your frontend to make requests
+    "https://shared-travel1.onrender.com" # Allow your frontend to make requests
 ]
 
 CSRF_COOKIE_SECURE = True

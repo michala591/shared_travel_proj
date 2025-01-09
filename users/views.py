@@ -5,8 +5,12 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from .serializers import userSerializer, LoginUserSerializer
+from .serializers import CustomTokenObtainPairSerializer, userSerializer, LoginUserSerializer
 from .models import User
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 @api_view(["GET", "POST"])

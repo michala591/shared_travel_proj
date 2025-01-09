@@ -125,25 +125,6 @@ def get_active_trips(request):
         return Response(serializer.data)
 
 
-# @api_view(["GET"])
-# def search_trips(request):
-#     letter = request.query_params.get("letter", None)
-
-#     if letter:
-#         trips = Trips.objects.filter(
-#             origin_station__city__startswith=letter
-#         ) | Trips.objects.filter(origin_station__zone__startswith=letter)
-
-#         trips = [trip for trip in trips if trip.has_available_seats()]
-
-#         serializer = SearchTripsSerializer(trips, many=True)
-#         return Response(serializer.data)
-
-#     return Response(
-#         {"detail": "Letter parameter is required."}, status=status.HTTP_400_BAD_REQUEST
-#     )
-
-
 @api_view(["GET"])
 def search_trips(request):
     letter = request.query_params.get("letter", None)
@@ -200,13 +181,6 @@ def my_trips(request):
     trips = Trips.objects.filter(users=request.user)
     serializer = tripsSerializer(trips, many=True)
     return Response(serializer.data)
-
-
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Trips
 
 
 @api_view(["DELETE"])

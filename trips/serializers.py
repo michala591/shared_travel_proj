@@ -38,7 +38,7 @@ class tripsSerializer(serializers.ModelSerializer):
 
 
 class TripsSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Trips
         fields = ["id"]
@@ -50,6 +50,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "username",
+            "phone_number",
             "email",
             "first_name",
             "last_name",
