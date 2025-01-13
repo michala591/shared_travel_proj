@@ -152,7 +152,7 @@ def invite_to_trip(request, id):
         )
     if Trips.objects.filter(users=request.user).exists():
         return Response(
-            {"error": "You are already part of trips."},
+            {"error": "You are already part of trips, please delete other trips."},
             status=status.HTTP_400_BAD_REQUEST,
         )
 
