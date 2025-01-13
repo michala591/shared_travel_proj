@@ -53,5 +53,12 @@ def car_detail(request):
 
     elif request.method == "DELETE":
         car = get_object_or_404(Car, user=request.user)
+        if car.trips.exists():
+            return Response(
+                {"error": "Cannot delete the car because it has associated trips."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         car.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response(
+            {"message": "Car deleted successfully."}, status=status.HTTP_204_NO_CONTENT
+        )
