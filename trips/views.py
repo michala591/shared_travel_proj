@@ -150,10 +150,7 @@ def invite_to_trip(request, id):
             {"error": "You are already part of this trip."},
             status=status.HTTP_400_BAD_REQUEST,
         )
-    if (
-        Trips.objects.filter(users=request.user).exists()
-        and request.user.user_type == "PA"
-    ):
+    if Trips.objects.filter(users=request.user).exists():
         return Response(
             {"error": "You are already part of trips."},
             status=status.HTTP_400_BAD_REQUEST,
