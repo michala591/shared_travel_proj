@@ -1,11 +1,11 @@
 from datetime import timezone
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from cars.models import Car
-from users.models import User
 from users.permissions import IsDriverUser
 from .serializers import (
     SearchTripsSerializer,
@@ -130,8 +130,11 @@ def search_trips(request):
     letter = request.query_params.get("letter", None)
     if letter:
         trips = Trips.objects.filter(
-            origin_station__city__istartswith=letter
-        ) | Trips.objects.filter(origin_station__zone__istartswith=letter)
+            Q(origin_station__city__istartswith=letter) |
+            Q(origin_station__zone__istartswith=letter) |
+            Q(origin_station__city__icontains=letter) |
+            Q(origin_station__zone__icontains=letter)
+        )
         trips = [trip for trip in trips if trip.available_seats()]
         serializer = SearchTripsSerializer(trips, many=True)
         return Response(serializer.data)

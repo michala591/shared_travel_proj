@@ -44,11 +44,22 @@ def user_detail(request, id):
         return Response(serializer.data)
 
     elif request.method == "PUT":
-        serializer = userSerializer(user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        try:
+            user = user
+            user.name = request.data.get("name", user.name)
+            user.phone_number = request.data.get("phone_number", user.phone_number)
+            user.email = request.data.get("email", user.email)
+            user.is_enabled = request.data.get("is_enabled", user.is_enabled)
+            user.save()
+            return Response(
+                {"message": "User updated successfully."},
+                status=status.HTTP_200_OK,
+            )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
     elif request.method == "DELETE":
         user.delete()
