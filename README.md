@@ -61,7 +61,7 @@ The **Shared Travel App** is a platform designed to simplify shared car trips by
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/michala591/shared_travel_proj.git
    cd shared-travel-app
    ```
 
